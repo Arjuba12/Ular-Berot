@@ -92,7 +92,7 @@ body {
     border: 1px solid #171B26;
     cursor: pointer;
     border-radius: 5px;
-    margin: 5px;
+    margin: 3px;
 }
 
 /* Responsive Styles */
@@ -112,7 +112,7 @@ body {
     }
 
     .controls i {
-        padding: 15px 0;
+        padding: 20px 0;
         font-size: 1rem;
     }
 }
