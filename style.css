@@ -13,6 +13,7 @@ body {
     justify-content: center;
     min-height: 100vh;
     background: #E3F2FD;
+    overscroll-behavior: none;
 }
 
 .wrapper {
@@ -99,8 +100,8 @@ body {
 /* Responsive Styles */
 @media screen and (max-width: 800px) {
     .wrapper {
-        width: 91vmin;
-        height: 155vmin;
+        width: 98vmin;
+        height: 120vmin;
     }
 
     .game-details {
@@ -109,7 +110,7 @@ body {
     }
 
     .controls {
-        display: flex; /* Show controls on small screens */
+        display: none; /* Show controls on small screens */
     }
 
     .controls i {
