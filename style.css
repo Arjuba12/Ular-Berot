@@ -5,6 +5,7 @@
     padding: 0;
     box-sizing: border-box;
     font-family: 'Open Sans', sans-serif;
+    overflow: hidden;
 }
 
 body {
@@ -13,6 +14,7 @@ body {
     justify-content: center;
     min-height: 100vh;
     background: #E3F2FD;
+    overscroll-behavior: none;
 }
 
 .wrapper {
@@ -79,7 +81,7 @@ body {
     flex-direction: column;
 }
 
-.controls i {
+/* .controls i {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -94,13 +96,13 @@ body {
     border-radius: 5px;
     margin: 3px;
     user-select: none;
-}
+} */
 
 /* Responsive Styles */
 @media screen and (max-width: 800px) {
     .wrapper {
-        width: 91vmin;
-        height: 155vmin;
+        width: 98vmin;
+        height: 120vmin;
     }
 
     .game-details {
@@ -109,7 +111,7 @@ body {
     }
 
     .controls {
-        display: flex; /* Show controls on small screens */
+        display: none; /* Show controls on small screens */
     }
 
     .controls i {
