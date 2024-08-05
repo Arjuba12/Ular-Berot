@@ -86,8 +86,8 @@ body {
     text-align: center;
     font-size: 1.3rem;
     color: #B8C6DC;
-    width: 200px;
-    height: 50px;
+    width: 96px;
+    height: 4px;
     background-color: #444;
     border: 1px solid #171B26;
     cursor: pointer;
@@ -98,8 +98,8 @@ body {
 /* Responsive Styles */
 @media screen and (max-width: 800px) {
     .wrapper {
-        width: 90vmin;
-        height: 115vmin;
+        width: 91vmin;
+        height: 155vmin;
     }
 
     .game-details {
