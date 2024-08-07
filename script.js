@@ -2,6 +2,10 @@ const playBoard = document.querySelector(".play-board");
 const scoreElement = document.querySelector(".score");
 const highScoreElement = document.querySelector(".high-score");
 const controls = document.querySelectorAll(".controls i");
+const toast = document.querySelector(".toast"),
+      closeIcons = document.querySelector(".close"),
+      progress = document.querySelector(".progress");
+
 var container = document.querySelector(".wrapper");
 
 let gameOver = false;
@@ -20,6 +24,17 @@ let lastRenderTime = 0;
 let baseSpeed = 110; // Base speed in ms
 let gameSpeed = baseSpeed;
 let specialItemExists = false;
+let spanActive = false;
+
+function pickupMsg(){
+  document.getElementById("span1").innerHTML= "Destruct"
+  document.getElementById("span2").innerHTML= "Obstacle Dihancurkan"
+}
+
+function speedUpMsg(){
+  document.getElementById("span1").innerHTML= "Speed Up"
+  document.getElementById("span2").innerHTML= "Kecepatan Bertambah"
+}
 
 //------------ code untuk touchscreen ---------------
 container.addEventListener("touchstart", startTouch, false);
@@ -55,7 +70,7 @@ function moveTouch(e) {
       console.log("swiped left");
       velocityX = -1;
       velocityY = 0;
-    } else if (diffX = 1 && velocityX !== -1){
+    } else if ((diffX = 1 && velocityX !== -1)) {
       // swiped right
       console.log("swiped right");
       velocityX = 1;
@@ -68,7 +83,7 @@ function moveTouch(e) {
       console.log("swiped up");
       velocityX = 0;
       velocityY = -1;
-    } else if(diffY = 1 && velocityY !== -1) {
+    } else if ((diffY = 1 && velocityY !== -1)) {
       // swiped down
       console.log("swiped down");
       velocityX = 0;
@@ -85,6 +100,7 @@ function moveTouch(e) {
 // -----------------------------------------------------
 highScoreElement.innerText = `High Score: ${highScore}`;
 
+// ----------------Item Position------------------------
 const updateFoodPosition = () => {
   do {
     foodX = Math.floor(Math.random() * 25) + 1;
@@ -105,13 +121,14 @@ const isPositionOccupied = (x, y) => {
     obstacles.some((obstacle) => obstacle[0] === x && obstacle[1] === y)
   );
 };
-
+// -------------------------------------------------------
 const handleGameOver = () => {
   cancelAnimationFrame(animationFrameId);
   alert("Game Over! Press OK to replay...");
   location.reload();
 };
 
+// --------------Control--------------------
 const changeDirection = (e) => {
   if (e.key === "ArrowUp" && velocityY !== 1) {
     velocityX = 0;
@@ -136,9 +153,11 @@ const changeDirection = (e) => {
 
 const adjustSpeed = () => {
   // Increase speed for every 5 points scored
-  if (score % 20 === 0) {
+  if (score % 10 === 0) {
     gameSpeed = baseSpeed - score * 1.5; // Example speed increment logic
     gameSpeed = Math.max(gameSpeed, 80); // Minimum speed to avoid too fast gameplay
+    spanActive = true;
+    speedUpMsg();
   }
 };
 
@@ -147,17 +166,15 @@ const addObstacles = () => {
   if (score >= 5 && score < 10) {
     numObstacles = 3;
   } else if (score >= 10 && score < 15) {
-    numObstacles = 5;
-  } else if (score >= 15 && score < 20) {
     numObstacles = 6;
-  } else if (score >= 20 && score < 30) {
-    numObstacles = 7;
-  } else if (score >= 30 && score < 50) {
-    numObstacles = 8;
-  } else if (score >= 50 && score < 100) {
-    numObstacles = 10;
-  } else if (score >= 100) {
+  } else if (score >= 15 && score < 20) {
     numObstacles = 12;
+  } else if (score >= 20 && score < 30) {
+    numObstacles = 24;
+  } else if (score >= 30 && score < 50) {
+    numObstacles = 48;
+  } else if (score >= 50 && score < 100) {
+    numObstacles = 96;
   } else {
     numObstacles = 0; // No obstacles for score < 10
   }
@@ -192,7 +209,8 @@ const initGame = (currentTime) => {
   foodElement.style.gridArea = `${foodY} / ${foodX}`;
   fragment.appendChild(foodElement);
 
-  if (!specialItemExists && score == 20) {
+  // -------------SPECIAL ITEM----------------
+  if (!specialItemExists && score == 15) {
     // Example: add special item if score is 15 or more
     updateSpecialPosition();
     specialItemExists = true;
@@ -205,6 +223,13 @@ const initGame = (currentTime) => {
     fragment.appendChild(specialElement);
   }
 
+  if (specialItemExists && snakeX === specialX && snakeY === specialY) {
+    specialItemExists = false;
+    obstacles = []; // Clear all obstacles
+    spanActive = true;
+    pickupMsg();
+  }
+// -------------MAKANAN--------------
   if (snakeX === foodX && snakeY === foodY) {
     updateFoodPosition();
     snakeBody.push([foodY, foodX]);
@@ -216,12 +241,7 @@ const initGame = (currentTime) => {
     adjustSpeed();
     addObstacles(); // Add obstacles based on score
   }
-
-  if (specialItemExists && snakeX === specialX && snakeY === specialY) {
-    specialItemExists = false;
-    obstacles = []; // Clear all obstacles
-  }
-
+// ---ARAH & PANJANG ULAR---
   snakeX += velocityX;
   snakeY += velocityY;
 
@@ -249,7 +269,7 @@ const initGame = (currentTime) => {
       gameOver = true;
     }
   }
-
+// ----------OBSTACLE----------
   for (let i = 0; i < obstacles.length; i++) {
     let obstacleElement = document.createElement("div");
     obstacleElement.classList.add("obstacle");
@@ -260,11 +280,22 @@ const initGame = (currentTime) => {
       gameOver = true;
     }
   }
+// ----------SPAN MSG-----------
+  if (spanActive) {
+    toast.classList.add("active");
+    progress.classList.add("active");
+    spanActive = false;
+
+    setTimeout(() =>{
+      toast.classList.remove("active");
+      progress.classList.remove("active");
+    }, 5000);
+  }
 
   playBoard.innerHTML = "";
   playBoard.appendChild(fragment);
 };
-
+// -----------------------------
 updateFoodPosition();
 animationFrameId = requestAnimationFrame(initGame);
 document.addEventListener("keydown", changeDirection);
