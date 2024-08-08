@@ -6,7 +6,76 @@ const toast = document.querySelector(".toast"),
       closeIcons = document.querySelector(".close"),
       progress = document.querySelector(".progress");
 
-var container = document.querySelector(".wrapper");
+ var container = document.querySelector(".wrapper");
+
+// ---Main-Menu---
+document.getElementById('start-game').addEventListener('click', () => {
+  document.querySelector('.main-menu').style.display = 'none';
+  document.querySelector('.wrapper').style.display = 'flex';
+  // Initialize the game
+  startGame();
+});
+// -----High-Score Screen-----
+document.getElementById('high-scores').addEventListener('click', () => {
+  document.querySelector('.main-menu').style.display = 'none';
+  document.querySelector('.high-scores-screen').style.display = 'block';
+  // Load high scores
+  loadHighScores();
+});
+
+document.getElementById('achievements').addEventListener('click', () => {
+  document.querySelector('.main-menu').style.display = 'none';
+  document.querySelector('.achievements-screen').style.display = 'block';
+  // Load achievements
+  loadAchievements();
+});
+
+document.getElementById('settings').addEventListener('click', () => {
+  document.querySelector('.main-menu').style.display = 'none';
+  document.querySelector('.settings-screen').style.display = 'block';
+  // Load settings
+});
+
+document.getElementById('back-to-menu').addEventListener('click', () => {
+  document.querySelector('.high-scores-screen').style.display = 'none';
+  document.querySelector('.main-menu').style.display = 'block';
+});
+
+document.getElementById('back-to-menu-achievements').addEventListener('click', () => {
+  document.querySelector('.achievements-screen').style.display = 'none';
+  document.querySelector('.main-menu').style.display = 'block';
+});
+
+document.getElementById('back-to-menu-settings').addEventListener('click', () => {
+  document.querySelector('.settings-screen').style.display = 'none';
+  document.querySelector('.main-menu').style.display = 'block';
+});
+
+document.getElementById('exit-game').addEventListener('click', () => {
+  window.close(); // Note: This will only work for desktop applications or browser extensions
+});
+
+function startGame() {
+  // Your existing game initialization code here
+  
+}
+
+function loadHighScores() {
+  // Load high scores from localStorage and display them
+  const scoresList = document.getElementById('scores-list');
+  const highScores = JSON.parse(localStorage.getItem('high-scores')) || [];
+  scoresList.innerHTML = highScores.map(score => `<p>${score}</p>`).join('');
+}
+
+function loadAchievements() {
+  // Load achievements from localStorage and display them
+  const achievementsList = document.getElementById('achievements-list');
+  const achievements = JSON.parse(localStorage.getItem('achievements')) || [];
+  achievementsList.innerHTML = achievements.map(achievement => `<p>${achievement}</p>`).join('');
+}
+
+// Existing game logic here...
+// ==================Main Game Code=======================
 
 let gameOver = false;
 let foodX, foodY;
@@ -160,7 +229,7 @@ const adjustSpeed = () => {
     speedUpMsg();
   }
 };
-
+// ----NUM OF OBSTACLE----
 const addObstacles = () => {
   let numObstacles;
   if (score >= 5 && score < 10) {
@@ -299,3 +368,4 @@ const initGame = (currentTime) => {
 updateFoodPosition();
 animationFrameId = requestAnimationFrame(initGame);
 document.addEventListener("keydown", changeDirection);
+// ==================Main Game Code End=======================

@@ -18,6 +18,7 @@ body {
   overscroll-behavior: none;
 }
 
+/* Toast Notif */
 .toast {
   background-color: #fff;
   border-radius: 12px;
@@ -118,8 +119,9 @@ body {
         right: 100%;
     }
 }
-
+/* Main-Board */
 .wrapper {
+  position: fixed;
   width: 65vmin;
   height: 70vmin;
   display: flex;
@@ -202,6 +204,80 @@ body {
     user-select: none;
 } */
 
+/* Main-Menu */
+.menu-container {
+  display:flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  flex-direction: column;
+}
+
+.main-menu, .game-screen, .high-scores-screen, .achievements-screen, .settings-screen {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+}
+
+h1, h2 {
+  font-size: 3rem;
+  margin-bottom: 3rem;
+  user-select: none;
+}
+
+button {
+  font-size: 1.2rem;
+  padding: 1rem 2rem;
+  margin: 1rem;
+  background-color: #444;
+  border: 1px solid #171B26;
+  box-shadow: 2px solid #212837;
+  color: #B8C6DC;
+  cursor: pointer;
+  border-radius: 10px;
+  user-select: none;
+}
+
+button:hover {
+  background-color: #555;
+}
+
+#start-game {
+  justify-content: center;
+  display: flex;
+  width: 10%;
+}
+
+#high-scores {
+  justify-content: center;
+  display: flex;
+  width: 10%;
+}
+
+#achievements {
+  justify-content: center;
+  display: flex;
+  width: 10%;
+}
+
+#settings {
+  justify-content: center;
+  display: flex;
+  width: 10%;
+}
+
+#exit-game {
+  justify-content: center;
+  display: flex;
+  width: 10%;
+}
+
+
 /* Responsive Styles */
 @media screen and (max-width: 800px) {
   .wrapper {
@@ -221,6 +297,36 @@ body {
   .controls i {
     padding: 20px 0;
     font-size: 1rem;
+  }
+
+  #start-game {
+    justify-content: center;
+    display: flex;
+    width: 50%;
+  }
+  
+  #high-scores {
+    justify-content: center;
+    display: flex;
+    width: 50%;
+  }
+  
+  #achievements {
+    justify-content: center;
+    display: flex;
+    width: 50%;
+  }
+  
+  #settings {
+    justify-content: center;
+    display: flex;
+    width: 50%;
+  }
+  
+  #exit-game {
+    justify-content: center;
+    display: flex;
+    width: 50%;
   }
 
 }
