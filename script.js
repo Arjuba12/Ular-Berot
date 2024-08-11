@@ -64,7 +64,6 @@ document.getElementById('exit-game').addEventListener('click', () => {
 function startGame() {
   // Your existing game initialization code here
   myBgm.play();
-  
 }
 
 function loadHighScores() {
