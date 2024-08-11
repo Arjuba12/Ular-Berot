@@ -9,7 +9,7 @@ const highScoreScreen = document.querySelector(".score-screen");
 
  var container = document.querySelector(".wrapper");
  var myBgm = document.getElementById("bgm");
- var eatSfx = new Audio ('/asset/sfx-eat.wav');
+ var eatSfx = new Audio ('./asset/sfx-eat.wav');
  myBgm.volume = 0.4;
 
 
