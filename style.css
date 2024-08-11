@@ -1,118 +1,393 @@
-@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&display=swap");
 
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Open Sans', sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Open Sans", sans-serif;
+  overflow: hidden;
+  overflow-x: hidden;
 }
 
 body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background: #e3f2fd;
+  overscroll-behavior: none;
+  background-image: url('./asset/blueSnake.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+  background-position: center;
+
+}
+
+.game-title {
+  display: flex;
+  justify-content: center;
+  border-top-left-radius: 24px;
+  border-top-right-radius: 24px;
+  background-color: rgb(102, 67, 102);
+  width: 15%;
+}
+
+#title-text {
+  font-size: 2rem;
+  text-align: center;
+  vertical-align: middle;
+  margin: 1.5rem;
+  border: #000000;
+  border-radius: 24px;
+  background-color: #0807064a;
+  background-image: url('./asset/background-doodle.png');
+}
+
+/* Toast Notif */ 
+.toast {
+  background-color: #fff;
+  border-radius: 12px;
+  padding: 2px 2px 3px 10px;
+  position:fixed;
+  top: 15px;
+  right: 10px;
+  box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.1);
+  border-left: 4px solid rgba(52, 87, 220, 0.5);
+  overflow: hidden;
+  transform: translateX(calc(100% + 10px));
+  transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.35);
+}
+
+.toast.active{
+    transform: translateX(0%);
+}
+
+.toast.deactive {
+    transform: translateX(calc(100% + 10px));
+}
+
+.toast .toast-content {
+  display: flex;
+  align-items: center;
+}
+
+.toast .message {
+  display: flex;
+  flex-direction: column;
+  margin: 0px 20px;
+  font: 600;
+}
+
+.message .text {
+    font-size: 20px;
+    font-weight: 400;
+    color: #666666;
+}
+
+.massage .text-1 {
+    font-weight: 600;
+    color: #333;
+}
+
+.toast-content .check {
     display: flex;
     align-items: center;
     justify-content: center;
-    min-height: 100vh;
-    background: #E3F2FD;
+    height: 35px;
+    width: 35px;
+    color: #fff;
+    background-color: #4070f4;
+    font-size: 20px;
+    border-radius: 50%;
+
 }
 
+.toast .close {
+    position: absolute;
+    font-weight: 600;
+    top: 5px;
+    right: 10px;
+    padding: 2px;
+    cursor: pointer;
+    opacity: 0.5;
+}
+
+.toast .close:hover {
+    opacity: 1;
+}
+
+.toast .progress {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 4px;
+    width: 100%;
+    background: #ddd;
+}
+
+.toast .progress::before {
+    content: ' ';
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    height: 100%;
+    width: 100%; 
+    background-color: rgba(68, 19, 89, 0.5);
+}
+
+.progress.active::before{
+    animation: progress 5s linear forwards;
+}
+
+@keyframes progress {
+    100%{
+        right: 100%;
+    }
+}
+/* Main-Board */
 .wrapper {
-    width: 65vmin;
-    height: 70vmin;
-    display: flex;
-    overflow: hidden;
-    flex-direction: column;
-    justify-content: center;
-    border-radius: 5px;
-    background: #293447;
-    box-shadow: 0 20px 40px rgba(52, 87, 220, 0.2);
+  position: fixed;
+  width: 65vmin;
+  height: 70vmin;
+  display: flex;
+  overflow: hidden;
+  flex-direction: column;
+  justify-content: center;
+  border-radius: 5px;
+  background: #2d1c32;
+  box-shadow: 0 20px 40px rgba(52, 87, 220, 0.2);
 }
 
 .game-details {
-    color: #B8C6DC;
-    font-weight: 500;
-    font-size: 1.2rem;
-    padding: 20px 27px;
-    display: flex;
-    justify-content: space-between;
+  color: #b8c6dc;
+  font-weight: 500;
+  font-size: 1.2rem;
+  padding: 20px 27px;
+  display: flex;
+  justify-content: space-between;
 }
 
 .play-board {
-    height: 100%;
-    width: 100%;
-    display: grid;
-    background: #212837;
-    grid-template: repeat(30, 1fr) / repeat(30, 1fr);
+  height: 100%;
+  width: 100%;
+  display: grid;
+  background: #4f2f4d;
+  grid-template: repeat(30, 1fr) / repeat(30, 1fr);
 }
 
 .play-board .food {
-    background: #FF003D;
+  background: #ff003d;
 }
 
 .play-board .head {
-    background: #60CBFF;
+  background: #60cbff;
 }
 
-.play-board .obstacle{
-    background: dimgray;
+.play-board .obstacle {
+  background: dimgray;
 }
 
-.play-board .special{
-    background: deeppink;
+.play-board .special {
+  background: deeppink;
 }
 .controls {
-    display: none; /* Hide by default */
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;   
-    bottom: 0;
-    padding: 10px;
-    background-color: #333;
+  display: none; /* Hide by default */
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  bottom: 0;
+  padding: 10px;
+  background-color: #333;
 }
 
-.controls .left, .controls .middle, .controls .right {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.controls .left,
+.controls .middle,
+.controls .right {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .controls .middle {
-    flex-direction: column;
+  flex-direction: column;
 }
 
-.controls i {
+/* .controls i {
     display: flex;
     align-items: center;
     justify-content: center;
     text-align: center;
     font-size: 1.3rem;
     color: #B8C6DC;
-    width: 200px;
-    height: 50px;
+    width: 96px;
+    height: 4px;
     background-color: #444;
     border: 1px solid #171B26;
     cursor: pointer;
     border-radius: 5px;
-    margin: 5px;
+    margin: 3px;
+    user-select: none;
+} */
+
+/* Main-Menu */
+.menu-container {
+  display:flex;
+  justify-content: center;
+  align-items: center;
+  width: 15%;
+  height: 100%;
+  flex-direction: column;
+  background-color: rgba(1, 3, 11, 0.324);
+  border-bottom-left-radius: 24px;
+  border-bottom-right-radius: 24px;
+  background-image: url('./asset/background-doodle.png');
+  background-size: cover;
+  background-position: center;
+  background-attachment:calc(50%);
+  background-repeat: no-repeat;
+  background-color: rgb(102, 67, 102);
 }
+
+
+.main-menu, .game-screen, .high-scores-screen, .achievements-screen, .settings-screen {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+}
+
+h1, h2 {
+  font-size: 3rem;
+  margin-bottom: 3rem;
+  user-select: none;
+}
+
+.score-screen {
+  color: rgb(230, 230, 51);
+}
+
+button {
+  font-size: 1.2rem;
+  padding: 1rem 2rem;
+  margin: 1rem;
+  background-color: #444;
+  border: 1px solid #171B26;
+  box-shadow: 2px solid #212837;
+  color: #B8C6DC;
+  cursor: pointer;
+  border-radius: 10px;
+  user-select: none;
+  background-color: #48484863;
+  -webkit-transition-duration: 0.4s; /* Safari */
+  transition-duration: 0.4s;
+}
+
+button:hover {
+  background-color: #aa494973;
+}
+
+#start-game {
+  justify-content: center;
+  display: flex;
+  width: 80%;
+  color: #ffffff;
+}
+
+#high-scores {
+  justify-content: center;
+  display: flex;
+  width: 80%;
+  color: #ffffff;
+}
+
+#achievements {
+  justify-content: center;
+  display: flex;
+  width: 80%;
+  color: #ffffff;
+}
+
+#settings {
+  justify-content: center;
+  display: flex;
+  width: 80%;
+  color: #ffffff;
+}
+
+#exit-game {
+  justify-content: center;
+  display: flex;
+  width: 80%;
+  color: #ffffff;
+}
+
 
 /* Responsive Styles */
 @media screen and (max-width: 800px) {
-    .wrapper {
-        width: 90vmin;
-        height: 115vmin;
-    }
+  .wrapper {
+    width: 98vmin;
+    height: 120vmin;
+  }
 
-    .game-details {
-        font-size: 1rem;
-        padding: 15px 27px;
-    }
+  .game-details {
+    font-size: 1rem;
+    padding: 15px 27px;
+  }
 
-    .controls {
-        display: flex; /* Show controls on small screens */
-    }
+  .controls {
+    display: none; /* Show controls on small screens */
+  }
 
-    .controls i {
-        padding: 15px 0;
-        font-size: 1rem;
-    }
+  .controls i {
+    padding: 20px 0;
+    font-size: 1rem;
+  }
+
+  .game-title{
+    width: 72%;
+  }
+
+  .menu-container {
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    width: 72%;
+    height: 100%;
+    flex-direction: column;
+  }
+
+  #start-game {
+    justify-content: center;
+    display: flex;
+    width: 70%;
+  }
+  
+  #high-scores {
+    justify-content: center;
+    display: flex;
+    width: 70%;
+  }
+  
+  #achievements {
+    justify-content: center;
+    display: flex;
+    width: 70%;
+  }
+  
+  #settings {
+    justify-content: center;
+    display: flex;
+    width: 70%;
+  }
+  
+  #exit-game {
+    justify-content: center;
+    display: flex;
+    width: 70%;
+  }
+
 }

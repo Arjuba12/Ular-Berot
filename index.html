@@ -1,35 +1,86 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Ular Berot</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css" />
     <script src="script.js" defer></script>
-</head>
+  </head>
 
-<body>
-    <div class="wrapper">
-        <div class="game-details">
-            <span class="score">Score: 0</span>
-            <span class="high-score">High Score: 0</span>
-        </div>
-        <div class="play-board"></div>
-        <div class="controls">
-            <div class="left">
-                <i data-key="ArrowLeft" class="fa-solid fa-arrow-left-long">Kiri</i>
-            </div>
-            <div class="middle">
-                <i data-key="ArrowUp" class="fa-solid fa-arrow-up-long">Atas</i>
-                <i data-key="ArrowDown" class="fa-solid fa-arrow-down-long">Bawah</i>
-            </div>
-            <div class="right">
-                <i data-key="ArrowRight" class="fa-solid fa-arrow-right-long">Kanan</i>
-            </div>
-        </div>
+  <body>
+
+    <audio loop style="display: none;" id="bgm">
+      <source src="./asset/pixify-bgm.mp3" type="audio/mpeg">
+    </audio>
+
+    <div class="main-menu">
+      <div class="game-title">
+        <h1 id="title-text" style="color: #ffffff;">ULAR BEROT</h1>
+      </div>
+      
+      <div class="menu-container">
+        <button id="start-game">Start Game</button>
+        <button id="high-scores">High Scores</button>
+        <button id="achievements">Achievements</button>
+        <button id="settings">Settings</button>
+        <button id="exit-game">Exit</button>
+      </div>
+    </div>
+
+    <div class="high-scores-screen" style="display: none;">
+      <h2>High Scores</h2>
+      <h1 class="score-screen">100</h1>
+      <div id="scores-list"></div>
+      <button id="back-to-menu" style="color: #ffffff;">Back to Menu</button>
+    </div>
+
+    <div class="achievements-screen" style="display: none;">
+      <h2>Achievements</h2>
+      <div id="achievements-list"></div>
+      <button id="back-to-menu-achievements" style="color: #ffffff;">Back to Menu</button>
     </div>
     
-</body>
+    <div class="settings-screen" style="display: none;">
+      <h2>Settings</h2>
+      <!-- Include your settings elements here -->
+      <button id="back-to-menu-settings" style="color: #ffffff;" >Back to Menu</button>
+    </div>
 
+    <div class="toast">
+      <div class="toast-content">
+        <i class="fas fa-solid fa-check check">&#x10022</i>
+
+        <div class="message">
+          <span class="text text-1" id="span1">Speed Up</span>
+          <span class="text text-2" id="span2">Kecepatan gerak bertambah</span>
+        </div>
+      </div>
+      <i class="fa-solid fa-xmark close">&#x2715</i>
+      <div class="progress"></div>
+
+    </div>
+
+    <div class="wrapper" style="display: none;">
+      <div class="game-details">
+        <span class="score">Score: 0</span>
+        <span class="high-score">High Score: 0</span>
+      </div>
+      <div class="play-board"></div>
+      <div class="controls">
+        <div class="left">
+          <i data-key="ArrowLeft" class="fa-solid fa-arrow-left-long">Kiri</i>
+        </div>
+        <div class="middle">
+          <i data-key="ArrowUp" class="fa-solid fa-arrow-up-long">Atas</i>
+          <i data-key="ArrowDown" class="fa-solid fa-arrow-down-long">Bawah</i>
+        </div>
+        <div class="right">
+          <i data-key="ArrowRight" class="fa-solid fa-arrow-right-long"
+            >Kanan</i
+          >
+        </div>
+      </div>
+    </div>
+  </body>
 </html>
