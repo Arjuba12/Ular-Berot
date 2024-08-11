@@ -5,8 +5,13 @@ const controls = document.querySelectorAll(".controls i");
 const toast = document.querySelector(".toast"),
       closeIcons = document.querySelector(".close"),
       progress = document.querySelector(".progress");
+const highScoreScreen = document.querySelector(".score-screen");
 
  var container = document.querySelector(".wrapper");
+ var myBgm = document.getElementById("bgm");
+ var eatSfx = new Audio ('/asset/sfx-eat.wav');
+ myBgm.volume = 0.4;
+
 
 // ---Main-Menu---
 document.getElementById('start-game').addEventListener('click', () => {
@@ -38,17 +43,18 @@ document.getElementById('settings').addEventListener('click', () => {
 
 document.getElementById('back-to-menu').addEventListener('click', () => {
   document.querySelector('.high-scores-screen').style.display = 'none';
-  document.querySelector('.main-menu').style.display = 'block';
+  document.querySelector('.main-menu').style.display = 'flex';
 });
 
 document.getElementById('back-to-menu-achievements').addEventListener('click', () => {
   document.querySelector('.achievements-screen').style.display = 'none';
-  document.querySelector('.main-menu').style.display = 'block';
+  document.querySelector('.main-menu').style.display = 'flex';
 });
 
 document.getElementById('back-to-menu-settings').addEventListener('click', () => {
   document.querySelector('.settings-screen').style.display = 'none';
-  document.querySelector('.main-menu').style.display = 'block';
+  document.querySelector('.main-menu').style.display = 'flex';
+  document.querySelector('.game-title').style.display = 'flex';
 });
 
 document.getElementById('exit-game').addEventListener('click', () => {
@@ -168,6 +174,7 @@ function moveTouch(e) {
 
 // -----------------------------------------------------
 highScoreElement.innerText = `High Score: ${highScore}`;
+highScoreScreen.innerText = highScore;
 
 // ----------------Item Position------------------------
 const updateFoodPosition = () => {
@@ -309,6 +316,7 @@ const initGame = (currentTime) => {
     highScoreElement.innerText = `High Score: ${highScore}`;
     adjustSpeed();
     addObstacles(); // Add obstacles based on score
+    eatSfx.play();
   }
 // ---ARAH & PANJANG ULAR---
   snakeX += velocityX;
